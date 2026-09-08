@@ -20,8 +20,8 @@ dag = DAG(
     tags=['spark', 'etl'],
 )
 
-run_spark_etl = BashOperator(
-    task_id='Agendamentos',
+maqueFacil = BashOperator(
+    task_id='Agendamentos Marque Facil',
     bash_command="""
     echo "=== INICIANDO ETL ==="
     echo "Data: $(date)"
@@ -45,4 +45,29 @@ run_spark_etl = BashOperator(
     dag=dag,
 )
 
-run_spark_etl
+operaFacil = BashOperator(
+    task_id='Agendamentos Opera Facil Adulto',
+    bash_command="""
+    echo "=== INICIANDO ETL ==="
+    echo "Data: $(date)"
+    
+    
+    # Usar spark-submit
+    spark-submit \
+        --master local[*] \
+        --packages org.apache.hadoop:hadoop-aws:3.3.4,com.amazonaws:aws-java-sdk-bundle:1.12.262 \
+        --conf spark.executor.heartbeatInterval=120s \
+        --conf spark.network.timeout=600s \
+        --conf spark.sql.warehouse.dir=/opt/spark-warehouse \
+        --conf spark.driver.memory=3g \
+        --conf spark.executor.memory=3g \
+        --conf spark.sql.shuffle.partitions=4 \
+        /opt/spark-apps/agendamentos/operaAdulto.py
+    
+    echo "=== ETL FINALIZADO ==="
+    """,
+    execution_timeout=timedelta(seconds=3600),
+    dag=dag,
+)
+
+maqueFacil > operaFacil
