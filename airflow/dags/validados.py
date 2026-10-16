@@ -21,7 +21,7 @@ dag = DAG(
 )
 
 maqueFacil = BashOperator(
-    task_id='Agendamentos Marque Facil',
+    task_id='Agendamentos_Marque_Facil',
     bash_command="""
     echo "=== INICIANDO ETL ==="
     echo "Data: $(date)"
@@ -46,7 +46,7 @@ maqueFacil = BashOperator(
 )
 
 operaFacil = BashOperator(
-    task_id='Agendamentos Opera Facil Adulto',
+    task_id='Agendamentos_Opera_Facil_Adulto',
     bash_command="""
     echo "=== INICIANDO ETL ==="
     echo "Data: $(date)"
