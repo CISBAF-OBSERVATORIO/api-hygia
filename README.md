@@ -1,10 +1,10 @@
 # api-hygia
 
-Pipeline de dados que coleta os agendamentos de procedimentos do sistema **Hygia** (CISBAF), processa com Spark em camadas **raw → silver → gold** e grava tudo em um **MinIO (S3)**. Os dados finais são consultados em um **Jupyter Notebook** (PySpark + Spark SQL) para alimentar os dashboards.
+Pipeline de dados que coleta os agendamentos de procedimentos do sistema **E-client** (CISBAF), processa com Spark em camadas **raw → silver → gold** e grava tudo em um **MinIO (S3)**. Os dados finais são consultados em um **Jupyter Notebook** (PySpark + Spark SQL) para alimentar os dashboards.
 
 ```mermaid
 flowchart LR
-    A[Sistema Hygia] --> B[Airflow<br/>DAG spark_etl_job]
+    A[Sistema E-client] --> B[Airflow<br/>DAG spark_etl_job]
     B --> C[spark-submit]
     C --> D[(MinIO<br/>s3a://agendamentos)]
     D --> E[Jupyter Notebook<br/>Spark SQL]
@@ -51,7 +51,7 @@ PHPSESSID=<cookie de sessão do Hygia>
 ```
 
 - `FERNET_KEY`: `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`
-- `PHPSESSID`: faça login no Hygia pelo navegador e copie o valor do cookie `PHPSESSID`. **Ele expira** — se a DAG falhar com 401/redirect, atualize o valor.
+- `PHPSESSID`: faça login no E-client pelo navegador e copie o valor do cookie `PHPSESSID`. **Ele expira** — se a DAG falhar com 401/redirect, atualize o valor.
 
 2. Baixe os JARs do S3A e coloque em `spark-apps/resources/jars/` (pasta ignorada pelo git, usada pelo notebook):
    - `hadoop-aws-3.3.4.jar`
@@ -76,7 +76,7 @@ docker compose up -d --build
 
 ### O que cada task faz
 
-1. **Extrai** os agendamentos da API do Hygia (`/agendamento_procedimento`), paginando de 500 em 500, usando o cookie `PHPSESSID`.
+1. **Extrai** os agendamentos da API do E-client (`/agendamento_procedimento`), paginando de 500 em 500, usando o cookie `PHPSESSID`.
 2. **raw** — salva como Parquet com todas as colunas em string (sem `anexos`).
 3. **silver** — renomeia (`fornecedor`→`prestador`, `nome`→`paciente`) e tipa as colunas.
 4. **gold** — adiciona colunas de apoio (`competencia`, `comp`, `ano`, `emenda`, `opera`…).
