@@ -2,11 +2,12 @@
 
 Pipeline de dados que coleta os agendamentos de procedimentos do sistema **Hygia** (CISBAF), processa com Spark em camadas **raw → silver → gold** e grava tudo em um **MinIO (S3)**. Os dados finais são consultados em um **Jupyter Notebook** (PySpark + Spark SQL) para alimentar os dashboards.
 
-```
-Sistema Hygia ──► Airflow (DAG spark_etl_job) ──► spark-submit ──► MinIO (s3a://agendamentos)
-                                                                          │
-                                                                          ▼
-                                                           Jupyter Notebook (Spark SQL)
+```mermaid
+flowchart LR
+    A[Sistema Hygia] --> B[Airflow<br/>DAG spark_etl_job]
+    B --> C[spark-submit]
+    C --> D[(MinIO<br/>s3a://agendamentos)]
+    D --> E[Jupyter Notebook<br/>Spark SQL]
 ```
 
 ## Stack
