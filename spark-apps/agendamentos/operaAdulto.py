@@ -71,7 +71,7 @@ def get_data():
     "credenciamento": credenciamento
    },
 
-   cookies={"PHPSESSID": "140hq8t6v7r2qivn5a2s6e3l9s"}
+   cookies={"PHPSESSID": "n0narfue6crp71fvgfqcuc57qf"}
   )
   
   response.raise_for_status()
