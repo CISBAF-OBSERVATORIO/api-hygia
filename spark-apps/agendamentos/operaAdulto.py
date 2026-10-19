@@ -15,6 +15,8 @@ data_final = data_final.strftime("%d/%m/%Y")
 data_inicial = "20/03/2025"
 data_final = "19/04/2025"
 emenda = "Opera Adulto (SES)"
+opera - "Opera Adulto"
+credenciamento = 19
 
 print(f"Data inicial: {data_inicial}")
 print(f"Data final:   {data_final}")
@@ -66,7 +68,7 @@ def get_data():
     "start": start,
     "length": length,
     "draw": 1,
-    "credenciamento": 19
+    "credenciamento": credenciamento
    },
 
    cookies={"PHPSESSID": os.getenv("PHPSESSID")}
@@ -192,16 +194,15 @@ def gold(data_silver):
  df = spark.read.parquet(data_silver)
  from pyspark.sql.functions import concat, lit
 
- df = df.withColumn("opera", lit("Opera Adulto"))
+ df = df.withColumn("opera", lit(opera))
  df = df.withColumn("emenda", lit(emenda))
 
 
  df = df.withColumn(
   "competencia",
   concat(
-   lit("Competencia "),
    lit(data_inicial[:5]),
-   lit(" A "),
+   lit(" a "),
    lit(data_final[:5]),
   )
  )
