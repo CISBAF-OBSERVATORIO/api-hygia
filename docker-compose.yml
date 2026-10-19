@@ -349,10 +349,9 @@ services:
     env_file:
       - .env
     image: pgsty/minio:latest
-    environment:
+    environment:  
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
-      - MINIO_DEFAULT_BUCKETS=bucket
     networks:
       - airflow-network
     volumes:

@@ -12,10 +12,10 @@ data_final = hoje.replace(day=19)
 data_inicial = data_inicial.strftime("%d/%m/%Y")
 data_final = data_final.strftime("%d/%m/%Y")
 
-data_inicial = "20/03/2025"
-data_final = "19/04/2025"
+data_inicial = "20/04/2026"
+data_final = "19/05/2026"
 emenda = "Opera Adulto (SES)"
-opera - "Opera Adulto"
+opera = "Opera Adulto"
 credenciamento = 19
 
 print(f"Data inicial: {data_inicial}")
@@ -71,7 +71,7 @@ def get_data():
     "credenciamento": credenciamento
    },
 
-   cookies={"PHPSESSID": os.getenv("PHPSESSID")}
+   cookies={"PHPSESSID": "140hq8t6v7r2qivn5a2s6e3l9s"}
   )
   
   response.raise_for_status()
