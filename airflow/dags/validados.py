@@ -46,7 +46,7 @@ maqueFacil = BashOperator(
 )
 
 operaFacil = BashOperator(
-    task_id='Agendamentos_Opera_Facil_Adulto',
+    task_id='opera',
     bash_command="""
     echo "=== INICIANDO ETL ==="
     echo "Data: $(date)"
@@ -70,4 +70,4 @@ operaFacil = BashOperator(
     dag=dag,
 )
 
-maqueFacil > operaFacil
+maqueFacil >> operaFacil
