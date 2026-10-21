@@ -23,7 +23,7 @@ flowchart LR
 
 Linguagem: Python (requests, pandas, PySpark). Os jobs Spark rodam dentro do container do Airflow (`spark-submit --master local[*]`).
 
-![Arquitetura do Projeto](./arq-2.png)
+![Arquitetura do Projeto](./arq-3.png)
 
 ## Estrutura
 
